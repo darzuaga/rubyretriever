@@ -223,7 +223,9 @@ module Retriever
 
     def push_custom_to_result(url, current_page, &block)
       data = block.call current_page
-      @result.push(data) unless data.empty?
+      if !data.nil?
+        @result.push(data) unless data.empty?
+      end
       lg("-- PageIterator called on: #{url}")
     end
 
