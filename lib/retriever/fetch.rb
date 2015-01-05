@@ -223,10 +223,12 @@ module Retriever
 
     def push_custom_to_result(url, current_page, &block)
       data = block.call current_page
-      if !data.nil?
+      begin
         @result.push(data) unless data.empty?
+        lg("-- PageIterator called on: #{url}")
+      rescue
+        nil
       end
-      lg("-- PageIterator called on: #{url}")
     end
 
     # send a new wave of GET requests, using current @link_stack
